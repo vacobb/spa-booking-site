@@ -1,0 +1,112 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Homepage
+{% endblock %}
+
+{% block main %}
+
+    <body>
+        <div class="container">
+            <div class="row top-buffer">
+                <div class="col-sm">
+                    <img src="{{ '/static/profilePics/' + user.profilePic if user.profilePic else '/static/blank-profile.webp' }}" class="float-start img-thumbnail rounded" alt="user's profile picture" width="50%" height="auto">
+
+                    <table class="table">
+                        <thead>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row top-buffer">Name:</th>
+                                <td>{{ user.firstname }} {{ user.lastname }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row top-buffer">Member Since:</th>
+                                <td>{{ user.timestamp }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h3>Booked Services</h3>
+                    <table class="table table-striped">
+                        <thead>
+                        </thead>
+                        <tbody>
+                            {% for service in services %}
+                                <tr scope="row top-buffer">
+                                    <td>{{ service.service }}</td>
+                                    <td>{{ service.day }}</td>
+                                    <td>{{ service.time }} </td>
+                                    <td>
+                                        <form action="/" method="post">
+                                            <input type="hidden" name="service_id" value="{{ service.service_id }}">
+                                            <button class="btn btn-primary" type="submit" name="removeservice">X</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="col-md">
+                    <form action="/" method="post">
+
+                        <div class="row">
+                            <h2>Book a Service</h2>
+                            <div class="col-sm">
+                                <div class="dropdown">
+                                    <select class="btn btn-secondary dropdown-toggle" aria-expanded="false" name="service" id="service">
+                                        <option value="" disabled selected>Service</option>
+                                        <option value="Massage">Massage</option>
+                                        <option value="Facial">Facial</option>
+                                        <option value="Manicure">Manicure</option>
+                                        <option value="Pedicure">Pedicure</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm">
+                                <div class="dropdown">
+                                    <select class="btn btn-secondary dropdown-toggle" aria-expanded="false" name="day" id="day">
+                                        <option value="" disabled selected>Day</option>
+                                        <option value="Monday">Monday</option>
+                                        <option value="Tuesday">Tuesday</option>
+                                        <option value="Wednesday">Wednesday</option>
+                                        <option value="Thursday">Thursday</option>
+                                        <option value="Friday">Friday</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm">
+                                <div class="dropdown">
+                                    <select class="btn btn-secondary dropdown-toggle" aria-expanded="false" name="time" id="time">
+                                        <option value="" disabled selected>Time</option>>
+                                        <option value="09:00-10:00">09:00-10:00</option>
+                                        <option value="10:00-11:00">10:00-11:00</option>
+                                        <option value="11:00-12:00">11:00-12:00</option>
+                                        <option value="12:00-13:00">12:00-13:00</option>
+                                        <option value="14:00-15:00">14:00-15:00</option>
+                                        <option value="15:00-16:00">15:00-16:00</option>
+                                        <option value="16:00-17:00">16:00-17:00</option>
+                                        <option value="17:00-18:00">17:00-18:00</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row top-buffer">
+                            <div class="col-sm"></div>
+                            <div class="col-sm">
+                                <button class="btn btn-primary" type="submit" name="book">Book</button>
+                            </div>
+                            <div class="col-sm"></div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    <!-- This calls your JavaScript -->
+        <script src="/static/spa.js"></script>
+    </body>
+
+
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Account
+{% endblock %}
+
+{% block main %}
+    <h2>Account</h2>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                <img src="{{ '/static/profilePics/' + user.profilePic if user.profilePic else '/static/blank-profile.webp' }}" class="float-start img-thumbnail rounded" alt="user's profile picture" width="50%" height="auto">
+            </div>
+            <div class="col-sm">
+                <table class="table">
+                    <thead>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">Name:</th>
+                            <td>
+                                <div class="mb-3">
+                                    <form action="/account" method="post">
+                                        <input autocomplete="off" autofocus class="form-control mx-auto w-auto" name="firstname" placeholder="First Name" type="text">
+                                        <input autocomplete="off" class="form-control mx-auto w-auto" name="lastname" placeholder="Last Name" type="text">
+                                        <button class="btn btn-primary" type="submit" name="update">Update Info</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Member Since:</th>
+                            <td>{{ user.timestamp }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row top-buffer">
+            <div class="col-sm">
+                <form action="/account" enctype="multipart/form-data" method="post">
+                    <input type="file" name="profilePic">
+                    <button class="btn btn-primary" type="submit" name="uploadPic">Upload Pic</button>
+                </form>
+            </div>
+            <div class="col-sm"></div>
+            <div class="col-sm"></div>
+        </div>
+    </div>
+
+{% endblock %}
